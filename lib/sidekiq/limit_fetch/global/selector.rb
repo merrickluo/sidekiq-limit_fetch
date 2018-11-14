@@ -30,6 +30,7 @@ module Sidekiq::LimitFetch::Global
           raise unless error.message.include? 'NOSCRIPT'
           it.eval send("redis_#{script_name}_script"), argv: args
         rescue Redis::BaseConnectionError
+          p 'limit_fetch: rescue from release connection error'
           retry
         end
       end
